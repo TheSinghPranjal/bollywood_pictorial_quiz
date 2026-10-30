@@ -16,9 +16,9 @@ void main() {
     jsonDecode(File('assets/data/questions.json').readAsStringSync()) as Map<String, dynamic>,
   );
 
-  test('bundled JSON has 606 questions, each with a picture and 4 options', () {
-    expect(bank.questions, hasLength(606));
-    expect(bank.questions.map((q) => q.id).toSet(), hasLength(606));
+  test('bundled JSON has 786 questions, each with a picture and 4 options', () {
+    expect(bank.questions, hasLength(786));
+    expect(bank.questions.map((q) => q.id).toSet(), hasLength(786));
     for (final q in bank.questions) {
       expect(q.sketch.isNotEmpty || q.imageUrl.isNotEmpty, isTrue, reason: q.id);
       expect(q.options.toSet(), hasLength(4), reason: q.id);
