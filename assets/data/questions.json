@@ -1,0 +1,588 @@
+{
+  "v": 3,
+  "q": [
+    {
+      "id": "ddlj_arms",
+      "k": "movie",
+      "q": "This open-arms pose in the mustard fields is legendary. Which movie is it from?",
+      "o": ["Dilwale Dulhania Le Jayenge", "Kuch Kuch Hota Hai", "Dil To Pagal Hai", "Kal Ho Naa Ho"],
+      "a": 0,
+      "f": "Shah Rukh Khan's arms-wide pose as Raj in DDLJ (1995) became his signature move for decades.",
+      "img": "",
+      "s": [
+        {"t": "c", "p": [272, 38, 18], "c": "#E39B19", "f": "#F6C343"},
+        {"t": "l", "p": [0, 150, 320, 150], "c": "#8A8A8A"},
+        {"t": "grass", "p": [4, 316, 200, 46, 9], "c": "#6B8E23", "f": "#E8C200"},
+        {"t": "fig", "p": [160, 80, 1.1], "a": [200, 215, 340, 325, 100, 92, 80, 88]},
+        {"t": "tx", "p": [16, 22, 13], "s": "~ come... come ~"}
+      ]
+    },
+    {
+      "id": "sholay_gabbar",
+      "k": "actor",
+      "q": "\"Kitne aadmi the?\" Which actor played the dacoit who roared this line?",
+      "o": ["Amjad Khan", "Amitabh Bachchan", "Dharmendra", "Sanjeev Kumar"],
+      "a": 0,
+      "f": "Amjad Khan's Gabbar Singh in Sholay (1975) is one of Hindi cinema's most iconic villains.",
+      "img": "",
+      "s": [
+        {"t": "pg", "p": [0, 200, 0, 120, 40, 90, 80, 115, 120, 70, 170, 110, 0, 200], "c": "#8B6B4A", "f": "#C9A27A"},
+        {"t": "pg", "p": [230, 200, 250, 130, 290, 105, 320, 130, 320, 200], "c": "#8B6B4A", "f": "#C9A27A"},
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#8B6B4A"},
+        {"t": "fig", "p": [160, 92, 1], "a": [150, 100, 20, 60, 105, 95, 75, 85], "x": ["mustache", "bandolier"]},
+        {"t": "b", "p": [186, 14, 126, 40, 168, 70], "s": "Kitne aadmi the?"}
+      ]
+    },
+    {
+      "id": "deewaar_maa",
+      "k": "movie",
+      "q": "\"Mere paas maa hai.\" This dialogue under a bridge is from which film?",
+      "o": ["Deewaar", "Trishul", "Zanjeer", "Kaala Patthar"],
+      "a": 0,
+      "f": "Shashi Kapoor's reply to Amitabh Bachchan in Deewaar (1975) is among the most quoted lines ever.",
+      "img": "",
+      "s": [
+        {"t": "l", "p": [0, 70, 40, 52, 100, 42, 160, 40, 220, 42, 280, 52, 320, 70], "c": "#6D6D6D", "w": 3},
+        {"t": "l", "p": [0, 62, 320, 62], "c": "#6D6D6D"},
+        {"t": "r", "p": [20, 70, 18, 130], "c": "#6D6D6D", "f": "#BDBDBD"},
+        {"t": "r", "p": [282, 70, 18, 130], "c": "#6D6D6D", "f": "#BDBDBD"},
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#6D6D6D"},
+        {"t": "fig", "p": [110, 103, 0.9], "a": [130, 10, 50, 170, 100, 90, 80, 90]},
+        {"t": "fig", "p": [210, 103, 0.9], "a": [120, 95, 60, 85, 100, 90, 80, 90]},
+        {"t": "b", "p": [150, 10, 128, 34, 205, 76], "s": "Mere paas maa hai."}
+      ]
+    },
+    {
+      "id": "mother_india_plough",
+      "k": "actress",
+      "q": "This image of a woman pulling a plough is etched in film history. Which actress played the role?",
+      "o": ["Nargis", "Madhubala", "Meena Kumari", "Waheeda Rehman"],
+      "a": 0,
+      "f": "Nargis played Radha in Mother India (1957), India's first submission for the Academy Awards.",
+      "img": "",
+      "s": [
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#7A5230"},
+        {"t": "l", "p": [0, 185, 120, 178], "c": "#A0784F"},
+        {"t": "l", "p": [0, 192, 140, 186], "c": "#A0784F"},
+        {"t": "l", "p": [180, 186, 320, 178], "c": "#A0784F"},
+        {"t": "l", "p": [118, 112, 152, 101, 250, 186], "c": "#6B4A2B", "w": 4},
+        {"t": "pg", "p": [244, 182, 268, 200, 238, 200], "c": "#555555", "f": "#9E9E9E"},
+        {"t": "fig", "p": [150, 95, 0.95], "a": [170, 20, 40, 120, 115, 100, 70, 95], "x": ["hair_long", "dress"]}
+      ]
+    },
+    {
+      "id": "lagaan_tax",
+      "k": "issue",
+      "q": "Drought-hit villagers bet everything on this cricket match. What are they fighting against?",
+      "o": ["A crippling land tax", "A ban on salt making", "Forced labour on railways", "Water rationing"],
+      "a": 0,
+      "f": "In Lagaan (2001), Bhuvan's village plays the British to escape a doubled 'lagaan' (land tax).",
+      "img": "",
+      "s": [
+        {"t": "c", "p": [270, 36, 22], "c": "#D9480F", "f": "#FF8A3D"},
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#8B6B4A"},
+        {"t": "l", "p": [20, 206, 50, 212, 70, 208], "c": "#8B6B4A"},
+        {"t": "l", "p": [230, 208, 260, 214, 300, 206], "c": "#8B6B4A"},
+        {"t": "l", "p": [86, 152, 86, 200], "c": "#6B4A2B", "w": 3},
+        {"t": "l", "p": [94, 152, 94, 200], "c": "#6B4A2B", "w": 3},
+        {"t": "l", "p": [102, 152, 102, 200], "c": "#6B4A2B", "w": 3},
+        {"t": "l", "p": [84, 150, 104, 150], "c": "#6B4A2B"},
+        {"t": "fig", "p": [150, 94, 1], "a": [30, 10, 50, 20, 110, 95, 70, 85]},
+        {"t": "l", "p": [196, 126, 224, 190], "c": "#B07D3C", "w": 6},
+        {"t": "c", "p": [262, 160, 5], "c": "#B00020", "f": "#E53935"},
+        {"t": "tx", "p": [16, 22, 13], "s": "1893, Champaner"}
+      ]
+    },
+    {
+      "id": "dabangg_shades",
+      "k": "actor",
+      "q": "Sunglasses tucked behind the collar, thumbs in the belt - which actor made this cop swagger famous?",
+      "o": ["Salman Khan", "Ajay Devgn", "Akshay Kumar", "Sanjay Dutt"],
+      "a": 0,
+      "f": "Salman Khan's Chulbul Pandey in Dabangg (2010) made the shades-on-the-collar move a craze.",
+      "img": "",
+      "s": [
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#6D6D6D"},
+        {"t": "fig", "p": [160, 92, 1], "a": [135, 57, 45, 123, 100, 90, 80, 90], "x": ["mustache", "shades_back", "cap"]},
+        {"t": "l", "p": [196, 70, 176, 90], "c": "#B00020"},
+        {"t": "l", "p": [176, 90, 184, 88], "c": "#B00020"},
+        {"t": "l", "p": [176, 90, 178, 82], "c": "#B00020"},
+        {"t": "tx", "p": [198, 58, 12], "s": "shades on the collar!"}
+      ]
+    },
+    {
+      "id": "three_idiots_aal_izz_well",
+      "k": "movie",
+      "q": "Patting the heart and saying \"All is well!\" - which movie gave us this mantra?",
+      "o": ["3 Idiots", "PK", "Munna Bhai M.B.B.S.", "Chhichhore"],
+      "a": 0,
+      "f": "Rancho's 'Aal Izz Well' from 3 Idiots (2009) is a tool to calm a scared heart.",
+      "img": "",
+      "s": [
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#6D6D6D"},
+        {"t": "r", "p": [216, 120, 96, 80], "c": "#6D6D6D", "f": "#D7CCC8"},
+        {"t": "tx", "p": [222, 140, 11], "s": "ICE College"},
+        {"t": "fig", "p": [140, 92, 1], "a": [200, 250, 60, 220, 100, 90, 80, 90]},
+        {"t": "pg", "p": [138, 102, 134, 98, 130, 100, 130, 104, 138, 112, 146, 104, 146, 100, 142, 98, 138, 102], "c": "#C62828", "f": "#EF5350"},
+        {"t": "b", "p": [170, 14, 120, 36, 152, 72], "s": "All is well!"}
+      ]
+    },
+    {
+      "id": "jab_we_met_geet",
+      "k": "actress",
+      "q": "\"Main apni favourite hoon!\" - which actress played the bubbly girl on the train?",
+      "o": ["Kareena Kapoor", "Priyanka Chopra", "Deepika Padukone", "Katrina Kaif"],
+      "a": 0,
+      "f": "Kareena Kapoor won a Filmfare Best Actress award for playing Geet in Jab We Met (2007).",
+      "img": "",
+      "s": [
+        {"t": "r", "p": [8, 70, 304, 100], "c": "#1E5A8A", "f": "#90CAF9"},
+        {"t": "r", "p": [24, 86, 40, 30], "c": "#1E5A8A"},
+        {"t": "r", "p": [80, 86, 40, 30], "c": "#1E5A8A"},
+        {"t": "r", "p": [250, 86, 40, 30], "c": "#1E5A8A"},
+        {"t": "c", "p": [60, 180, 10], "c": "#333333"},
+        {"t": "c", "p": [260, 180, 10], "c": "#333333"},
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#6D6D6D"},
+        {"t": "fig", "p": [190, 97, 0.95], "a": [210, 260, 40, 140, 100, 90, 80, 90], "x": ["hair_long", "dress"]},
+        {"t": "b", "p": [12, 12, 160, 36, 180, 68], "s": "Main apni favourite hoon!"}
+      ]
+    },
+    {
+      "id": "phool_aur_kaante_split",
+      "k": "movie",
+      "q": "A hero doing a full split on two moving bikes in his very first film! Which movie?",
+      "o": ["Phool Aur Kaante", "Jigar", "Dilwale", "Vijaypath"],
+      "a": 0,
+      "f": "Ajay Devgn made his debut entry balancing on two motorcycles in Phool Aur Kaante (1991).",
+      "img": "",
+      "s": [
+        {"t": "l", "p": [0, 200, 320, 200], "c": "#6D6D6D"},
+        {"t": "c", "p": [56, 184, 16], "c": "#333333"},
+        {"t": "c", "p": [120, 184, 16], "c": "#333333"},
+        {"t": "pg", "p": [56, 184, 74, 160, 112, 156, 120, 184, 88, 172, 56, 184], "c": "#333333", "f": "#757575"},
+        {"t": "c", "p": [200, 184, 16], "c": "#333333"},
+        {"t": "c", "p": [264, 184, 16], "c": "#333333"},
+        {"t": "pg", "p": [200, 184, 208, 156, 246, 160, 264, 184, 232, 172, 200, 184], "c": "#333333", "f": "#757575"},
+        {"t": "fig", "p": [160, 98, 1], "a": [190, 175, 350, 5, 168, 176, 12, 4]},
+        {"t": "l", "p": [8, 150, 30, 150], "c": "#9E9E9E"},
+        {"t": "l", "p": [0, 164, 26, 164], "c": "#9E9E9E"},
+        {"t": "tx", "p": [16, 24, 13], "s": "zoooom >>>"}
+      ]
+    },
+    {
+      "id": "dangal_chhoriyan",
+      "k": "issue",
+      "q": "\"Mhaari chhoriyan chhoron se kam hai ke?\" Which social issue does this wrestling drama take on?",
+      "o": ["Gender bias against girls", "Caste discrimination", "Child labour", "Farmer debt"],
+      "a": 0,
+      "f": "Dangal (2016) follows the Phogat sisters, who broke gender barriers in Indian wrestling.",
+      "img": "",
+      "s": [
+        {"t": "pg", "p": [20, 200, 50, 170, 270, 170, 300, 200], "c": "#8B6B4A", "f": "#C9A27A"},
+        {"t": "fig", "p": [128, 96, 0.95], "a": [340, 350, 320, 340, 115, 100, 70, 100], "x": ["ponytail"]},
+        {"t": "fig", "p": [196, 96, 0.95], "a": [200, 190, 220, 200, 110, 80, 65, 80], "x": ["ponytail"]},
+        {"t": "b", "p": [24, 8, 272, 36, 160, 70], "s": "Mhaari chhoriyan chhoron se kam hai ke?"}
+      ]
+    },
+    {
+      "id": "shahenshah_baap",
+      "k": "movie",
+      "q": "\"Rishte mein toh hum tumhare baap lagte hain, naam hai...\" Which Amitabh Bachchan film completes this line?",
+      "o": ["Shahenshah", "Agneepath", "Coolie", "Lawaaris"],
+      "a": 0,
+      "f": "The full line ends with 'naam hai Shahenshah' - from Shahenshah (1988).",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/960px-Indian_actor_Amitabh_Bachchan.jpg",
+      "cr": "Shrinivas Kulkarni / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "pink_no_means_no",
+      "k": "issue",
+      "q": "As a retired lawyer he argued \"No means no\" in court. Which issue did that film put on trial?",
+      "o": ["Consent and women's safety", "Land acquisition", "Bank fraud", "Medical negligence"],
+      "a": 0,
+      "f": "Pink (2016) made 'No means no' a national conversation about consent.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/Indian_actor_Amitabh_Bachchan.jpg/960px-Indian_actor_Amitabh_Bachchan.jpg",
+      "cr": "Shrinivas Kulkarni / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "baazigar_haar_kar",
+      "k": "movie",
+      "q": "\"Haar kar jeetne wale ko baazigar kehte hain.\" Which film made this line a classic?",
+      "o": ["Baazigar", "Darr", "Anjaam", "Karan Arjun"],
+      "a": 0,
+      "f": "Shah Rukh Khan played an anti-hero in Baazigar (1993), a huge risk that paid off.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "chak_de_sattar_minute",
+      "k": "movie",
+      "q": "\"Sattar minute hai tumhare paas...\" In which film did he give this locker-room speech to a hockey team?",
+      "o": ["Chak De! India", "Swades", "Paheli", "Fan"],
+      "a": 0,
+      "f": "As coach Kabir Khan in Chak De! India (2007), he led the women's hockey team to glory.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Shah_Rukh_Khan_graces_the_launch_of_the_new_Santro.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "mr_india_mogambo",
+      "k": "movie",
+      "q": "\"Mogambo khush hua!\" Which film's villain said this?",
+      "o": ["Mr. India", "Karan Arjun", "Nagina", "Tridev"],
+      "a": 0,
+      "f": "Amrish Puri's Mogambo in Mr. India (1987) is one of the most loved villains ever.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/7/77/Amrish_Puri.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "wanted_commitment",
+      "k": "movie",
+      "q": "\"Ek baar jo maine commitment kar di, uske baad toh main khud ki bhi nahi sunta.\" Which film?",
+      "o": ["Wanted", "Bodyguard", "Ready", "Dabangg"],
+      "a": 0,
+      "f": "Wanted (2009) revived Salman Khan's action-hero image.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Salman_Khan_in_2023_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "damini_dhai_kilo",
+      "k": "movie",
+      "q": "\"Yeh dhai kilo ka haath jab kisi pe padta hai na...\" Which courtroom drama is this from?",
+      "o": ["Damini", "Ghayal", "Gadar", "Border"],
+      "a": 0,
+      "f": "Sunny Deol won a National Award for playing lawyer Govind in Damini (1993).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Sunny_Paaji_2024.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "gully_boy_costar",
+      "k": "actor",
+      "q": "She played fiery Safeena opposite a rapper who shouted \"Apna time aayega!\" Which actor played the rapper?",
+      "o": ["Ranveer Singh", "Siddhant Chaturvedi", "Vicky Kaushal", "Varun Dhawan"],
+      "a": 0,
+      "f": "Ranveer Singh played Murad in Gully Boy (2019), inspired by Mumbai's street rappers.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Alia_Bhatt_attends_at_the_2026_Cannes_Film_Festival_%28cropped%29_%28cropped%29.jpg/960px-Alia_Bhatt_attends_at_the_2026_Cannes_Film_Festival_%28cropped%29_%28cropped%29.jpg",
+      "cr": "Gabriel Hutchinson / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "dirty_picture_entertainment",
+      "k": "movie",
+      "q": "\"Filmein sirf teen cheezon ki wajah se chalti hain - entertainment, entertainment, entertainment.\" Which film?",
+      "o": ["The Dirty Picture", "Kahaani", "Parineeta", "Bhool Bhulaiyaa"],
+      "a": 0,
+      "f": "Vidya Balan won the National Award for Best Actress for The Dirty Picture (2011).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Vidya_Balan_at_BB3_interviews%2C_2024_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "tezaab_costar",
+      "k": "actor",
+      "q": "She danced to \"Ek Do Teen\" in Tezaab. Which actor played her lover Munna in that film?",
+      "o": ["Anil Kapoor", "Jackie Shroff", "Sanjay Dutt", "Govinda"],
+      "a": 0,
+      "f": "Tezaab (1988) made Madhuri Dixit and Anil Kapoor a superhit pair.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Madhuri_Dixit_in_November_2022.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "bajirao_mastani",
+      "k": "movie",
+      "q": "She played the warrior-princess Mastani, who sang \"Deewani Mastani\". Which film?",
+      "o": ["Bajirao Mastani", "Padmaavat", "Goliyon Ki Raasleela Ram-Leela", "Piku"],
+      "a": 0,
+      "f": "Bajirao Mastani (2015) was directed by Sanjay Leela Bhansali.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Deepika_Padukone_2025_%281%29.png/960px-Deepika_Padukone_2025_%281%29.png",
+      "cr": "Narendra Modi / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "pk_wrong_number",
+      "k": "issue",
+      "q": "As an alien he kept saying \"Wrong number!\" about godmen. What does that film question?",
+      "o": ["Blind faith and fake godmen", "Dowry", "Terrorism", "Illiteracy"],
+      "a": 0,
+      "f": "PK (2014) used an alien's innocence to question religious superstition.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/6/65/Aamir_Khan_at_the_success_bash_of_Secret_Superstar.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "tzp_dyslexia",
+      "k": "issue",
+      "q": "As art teacher Ram Shankar Nikumbh, he helped a struggling 8-year-old. What was the child's condition?",
+      "o": ["Dyslexia", "Autism", "Hearing loss", "Stammering"],
+      "a": 0,
+      "f": "Taare Zameen Par (2007) brought dyslexia awareness to Indian homes and schools.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/6/65/Aamir_Khan_at_the_success_bash_of_Secret_Superstar.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "toilet_open_defecation",
+      "k": "issue",
+      "q": "In Toilet: Ek Prem Katha, a bride leaves her husband's home. What issue drives the story?",
+      "o": ["Open defecation", "Water scarcity", "Dowry", "Liquor ban"],
+      "a": 0,
+      "f": "The film (2017) supported the Swachh Bharat sanitation campaign.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Akshay_Kumar_National_Award_for_Padman_%28cropped%29.jpg",
+      "cr": "Vice President's Secretariat / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "padman_menstrual",
+      "k": "issue",
+      "q": "He won a National Award for Padman. What issue does Padman tackle?",
+      "o": ["Menstrual hygiene", "Child marriage", "Female foeticide", "Acid attacks"],
+      "a": 0,
+      "f": "Padman (2018) is inspired by Arunachalam Muruganantham, who made low-cost sanitary pads.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Akshay_Kumar_National_Award_for_Padman_%28cropped%29.jpg",
+      "cr": "Vice President's Secretariat / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "vicky_donor_stigma",
+      "k": "issue",
+      "q": "His debut film Vicky Donor joked about a taboo. Which one?",
+      "o": ["Sperm donation and infertility", "Divorce", "HIV/AIDS", "Mental illness"],
+      "a": 0,
+      "f": "Vicky Donor (2012) handled infertility stigma with humour.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Ayushmann_Khurrana_promotos_%27Anek%27_in_Delhi_%281%29_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "article_15_caste",
+      "k": "issue",
+      "q": "As a police officer in Article 15, what discrimination does he fight?",
+      "o": ["Caste discrimination", "Religious riots", "Gender pay gap", "Child labour"],
+      "a": 0,
+      "f": "Article 15 of the Indian Constitution prohibits discrimination by caste, religion, sex and more.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Ayushmann_Khurrana_promotos_%27Anek%27_in_Delhi_%281%29_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "udta_punjab_drugs",
+      "k": "issue",
+      "q": "He played rockstar Tommy Singh in Udta Punjab. What crisis does the film expose?",
+      "o": ["Drug abuse among youth", "Farmer suicides", "Illegal immigration", "Sand mining"],
+      "a": 0,
+      "f": "Udta Punjab (2016) fought a famous censorship battle before release.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/2/25/Shahid_Kapoor_at_Bloody_Daddy_launch_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "maratha_mandir_simran",
+      "k": "actress",
+      "q": "This Mumbai cinema has screened DDLJ for over 25 years. Who played Simran?",
+      "o": ["Kajol", "Juhi Chawla", "Madhuri Dixit", "Karisma Kapoor"],
+      "a": 0,
+      "f": "DDLJ's run at Maratha Mandir is the longest for any Indian film.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/DDLJ_26YearsMarathaManndir.jpg/960px-DDLJ_26YearsMarathaManndir.jpg",
+      "cr": "Cinzia007 / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "sholay_basanti_tanga",
+      "k": "actress",
+      "q": "Sholay's chatterbox drove a horse-cart like this with her mare Dhanno. Who played Basanti?",
+      "o": ["Hema Malini", "Jaya Bachchan", "Zeenat Aman", "Rekha"],
+      "a": 0,
+      "f": "'Chal Dhanno! Aaj teri Basanti ki izzat ka sawaal hai!' - Hema Malini in Sholay (1975).",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/TangaJaora.jpg/960px-TangaJaora.jpg",
+      "cr": "Deeptrivia / CC BY-SA 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "anand_babumoshai",
+      "k": "movie",
+      "q": "\"Babumoshai, zindagi badi honi chahiye, lambi nahi.\" Which film is this line from?",
+      "o": ["Anand", "Aradhana", "Amar Prem", "Kati Patang"],
+      "a": 0,
+      "f": "Rajesh Khanna's Anand (1971) faces a terminal illness with a smile.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Rajesh_Khanna_2013_stamp_of_India_%28cropped%29.jpg",
+      "cr": "India Post, Government of India / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "mughal_e_azam_salim",
+      "k": "movie",
+      "q": "He played Prince Salim, who defied Emperor Akbar for Anarkali. Which film?",
+      "o": ["Mughal-e-Azam", "Devdas", "Naya Daur", "Ganga Jamuna"],
+      "a": 0,
+      "f": "Mughal-e-Azam (1960) took about 16 years to make and was later re-released in colour.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Dilip_Kumar_2006.jpg",
+      "cr": "Webside at English Wikipedia / Public domain, via Wikimedia Commons"
+    },
+    {
+      "id": "sholay_basanti_kutte",
+      "k": "movie",
+      "q": "\"Basanti, in kutton ke saamne mat naachna!\" Which film did Veeru shout this in?",
+      "o": ["Sholay", "Seeta Aur Geeta", "Chupke Chupke", "Dharam Veer"],
+      "a": 0,
+      "f": "Dharmendra played Veeru in Sholay (1975), opposite Hema Malini's Basanti.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Shri_Dharmendra_Deol_on_April_04%2C_2012.jpg",
+      "cr": "President's Secretariat / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "shree_420_joota",
+      "k": "movie",
+      "q": "He sang \"Mera Joota Hai Japani\" as a tramp walking to Bombay. Which film?",
+      "o": ["Shree 420", "Awaara", "Mera Naam Joker", "Barsaat"],
+      "a": 0,
+      "f": "Shree 420 (1955) gave Raj Kapoor his Chaplin-like 'tramp' image.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Raj_Kapoor_2001_stamp_of_India_%28cropped%29.jpg",
+      "cr": "India Post, Government of India / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "guide_raju",
+      "k": "movie",
+      "q": "He played Raju, a tour guide who ends up worshipped as a holy man. Which film?",
+      "o": ["Guide", "Jewel Thief", "Hare Rama Hare Krishna", "C.I.D."],
+      "a": 0,
+      "f": "Guide (1965) is based on R. K. Narayan's novel The Guide.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Dev_Anand_interacting_with_the_Press_at_the_36th_International_Film_Festival_of_India_%E2%80%93_2005_in_Panaji%2C_Goa_on_November_26%2C_2005.jpg",
+      "cr": "Ministry of Information and Broadcasting / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "nayak_one_day_cm",
+      "k": "movie",
+      "q": "He played a TV reporter who becomes Chief Minister for just one day. Which film?",
+      "o": ["Nayak", "Lamhe", "Taal", "Welcome"],
+      "a": 0,
+      "f": "Nayak: The Real Hero (2001) is a remake of the Tamil film Mudhalvan.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/0/08/Anil_Kapoor_1.jpeg",
+      "cr": "Ministry of Information and Broadcasting / GODL-India, via Wikimedia Commons"
+    },
+    {
+      "id": "gow_faizal_badla",
+      "k": "movie",
+      "q": "\"Baap ka, dada ka, bhai ka... sabka badla lega re tera Faizal!\" Which film?",
+      "o": ["Gangs of Wasseypur", "Manjhi - The Mountain Man", "Raman Raghav 2.0", "Kick"],
+      "a": 0,
+      "f": "Gangs of Wasseypur (2012) by Anurag Kashyap was released in two parts.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Nawazuddin_Siddiqui_at_IFFK_2021_4_%28cropped%29.jpg/960px-Nawazuddin_Siddiqui_at_IFFK_2021_4_%28cropped%29.jpg",
+      "cr": "Shagil Kannur / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "paan_singh_baaghi",
+      "k": "movie",
+      "q": "\"Beehad mein baaghi hote hain, dacait milte hain Parliament mein.\" Which film?",
+      "o": ["Paan Singh Tomar", "Haider", "Maqbool", "Piku"],
+      "a": 0,
+      "f": "Irrfan won the National Award for playing the athlete-turned-rebel Paan Singh Tomar (2012).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/2/27/Irrfan_Khan_still2.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "queen_solo_honeymoon",
+      "k": "movie",
+      "q": "Dumped before her wedding, she goes on her honeymoon alone to Paris and Amsterdam. Which film?",
+      "o": ["Queen", "Tanu Weds Manu", "Fashion", "Manikarnika"],
+      "a": 0,
+      "f": "Kangana Ranaut won the National Award for Best Actress for Queen (2014).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Kangana_Ranaut_at_Ira_Khan%27s_wedding_reception_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "mary_kom_boxing",
+      "k": "movie",
+      "q": "She played a five-time world champion boxer from Manipur. Which film?",
+      "o": ["Mary Kom", "Barfi!", "Fashion", "Dil Dhadakne Do"],
+      "a": 0,
+      "f": "Mary Kom (2014) is a biopic of Olympic medallist boxer M. C. Mary Kom.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/4/45/Priyanka_Chopra_at_Bulgary_launch%2C_2024_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "koi_mil_gaya_jadoo",
+      "k": "movie",
+      "q": "His best friend was a blue alien called Jadoo who loved sunlight. Which film?",
+      "o": ["Koi... Mil Gaya", "Kaho Naa... Pyaar Hai", "Lakshya", "Dhoom 2"],
+      "a": 0,
+      "f": "Koi... Mil Gaya (2003) led to the Krrish superhero series.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Hrithik_at_Rado_launch.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "newton_elections",
+      "k": "issue",
+      "q": "As honest clerk Newton, he insists on holding a fair vote in a jungle. What is the film about?",
+      "o": ["Elections in a Maoist conflict zone", "Illegal mining", "Tribal land grabs", "Bonded labour"],
+      "a": 0,
+      "f": "Newton (2017) was India's official entry to the Oscars.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Actor_Rajkummar_Rao.jpg/960px-Actor_Rajkummar_Rao.jpg",
+      "cr": "Deepak Naik / CC0, via Wikimedia Commons"
+    },
+    {
+      "id": "dum_laga_body_shaming",
+      "k": "issue",
+      "q": "In her debut Dum Laga Ke Haisha, her husband is embarrassed by her. Which issue does it tackle?",
+      "o": ["Body shaming", "Dowry", "Caste in marriage", "Unemployment"],
+      "a": 0,
+      "f": "Bhumi Pednekar gained weight for the role and won the Filmfare Best Female Debut award.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Bhumi_Pednekar_promoting_Thank_You_For_Coming.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "mnik_islamophobia",
+      "k": "issue",
+      "q": "She played Mandira in \"My Name Is Khan\". Which issue does that film confront?",
+      "o": ["Islamophobia after 9/11", "Racism in sports", "Refugee crisis", "Religious conversion"],
+      "a": 0,
+      "f": "'My name is Khan, and I am not a terrorist' became the film's defining line (2010).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/9/94/Kajol_in_October_2021.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "hichki_tourette",
+      "k": "issue",
+      "q": "In Hichki she becomes a teacher despite an uncontrollable hiccup-like tic. What condition does she have?",
+      "o": ["Tourette syndrome", "Epilepsy", "Stammering", "Dyslexia"],
+      "a": 0,
+      "f": "Hichki (2018) is based on the life of American teacher Brad Cohen.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/7/76/Rani_Mukerji_snapped_at_Hema_Malini%E2%80%99s_75th_birthday_celebration_%28cropped%29%282%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "thappad_domestic_violence",
+      "k": "issue",
+      "q": "\"Bas ek thappad. Par nahi maar sakta.\" Which issue does Thappad raise?",
+      "o": ["Domestic violence", "Dowry", "Workplace harassment", "Child marriage"],
+      "a": 0,
+      "f": "Thappad (2020) asks whether even a single slap in a marriage is acceptable.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/1/15/Taapsee_Pannu_in_March_2022.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "uri_hows_the_josh",
+      "k": "movie",
+      "q": "\"How's the josh?\" \"High, sir!\" Which film made this a nationwide chant?",
+      "o": ["Uri: The Surgical Strike", "Raazi", "Sardar Udham", "Sam Bahadur"],
+      "a": 0,
+      "f": "Vicky Kaushal won the National Award for Best Actor for Uri (2019).",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/1/14/Vicky_Kaushal_snapped_promoting_Zara_Hatke_Zara_Bach_Ke_on_the_sets_of_The_Kapil_Sharma_Show_%28cropped%29.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "english_vinglish",
+      "k": "issue",
+      "q": "In English Vinglish, her family mocks her. What issue does the film highlight?",
+      "o": ["Homemakers shamed for not speaking English", "Women barred from working", "Joint-family property fights", "Ageism in Bollywood"],
+      "a": 0,
+      "f": "English Vinglish (2012) marked Sridevi's comeback after 15 years.",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Sridevi.jpg",
+      "cr": "Bollywood Hungama / CC BY 3.0, via Wikimedia Commons"
+    },
+    {
+      "id": "pangong_pia",
+      "k": "actress",
+      "q": "The final scene of 3 Idiots was shot at this Ladakh lake. Who played Pia?",
+      "o": ["Kareena Kapoor", "Asin", "Anushka Sharma", "Vidya Balan"],
+      "a": 0,
+      "f": "Pangong Lake became a tourist hotspot after 3 Idiots (2009).",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/A_view_of_Pangong_Lake.jpg/960px-A_view_of_Pangong_Lake.jpg",
+      "cr": "ThePoeticFrame / CC BY-SA 4.0, via Wikimedia Commons"
+    },
+    {
+      "id": "ramanagara_thakur",
+      "k": "actor",
+      "q": "Sholay's village of Ramgarh was shot in these rocky hills near Bengaluru. Who played Thakur?",
+      "o": ["Sanjeev Kumar", "Amjad Khan", "Dharmendra", "A. K. Hangal"],
+      "a": 0,
+      "f": "Sanjeev Kumar's armless Thakur Baldev Singh is one of Sholay's most powerful roles.",
+      "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Ramanagara_.jpg/960px-Ramanagara_.jpg",
+      "cr": "KshitizBathwal / CC BY-SA 4.0, via Wikimedia Commons"
+    }
+  ]
+}
