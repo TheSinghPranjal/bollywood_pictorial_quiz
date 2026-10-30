@@ -6,11 +6,9 @@ import 'question.dart';
 /// Disk cache for question photos. Images are kept for a year so the quiz
 /// works offline once they have been downloaded.
 class QuizImageCache {
-  static final instance = CacheManager(Config(
-    'quizImages',
-    stalePeriod: const Duration(days: 365),
-    maxNrOfCacheObjects: 300,
-  ));
+  static final instance = CacheManager(
+    Config('quizImages', stalePeriod: const Duration(days: 365), maxNrOfCacheObjects: 300),
+  );
 
   /// Wikimedia rejects requests without a descriptive User-Agent.
   static const headers = {'User-Agent': 'BollywoodPictorialQuiz/1.0 (Flutter app)'};

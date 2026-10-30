@@ -20,9 +20,7 @@ class QuestionRepository {
   final http.Client _client;
 
   Future<List<Question>> loadLocal() async {
-    final bundled = QuestionBank.fromJson(
-      jsonDecode(await rootBundle.loadString(_assetPath)) as Map<String, dynamic>,
-    );
+    final bundled = QuestionBank.fromJson(jsonDecode(await rootBundle.loadString(_assetPath)) as Map<String, dynamic>);
     final prefs = await SharedPreferences.getInstance();
     final saved = prefs.getString(_downloadedKey);
     if (saved == null) return bundled.questions;
@@ -56,8 +54,7 @@ class QuestionRepository {
     }
   }
 
-  Future<int> bestScore() async =>
-      (await SharedPreferences.getInstance()).getInt(_bestScoreKey) ?? 0;
+  Future<int> bestScore() async => (await SharedPreferences.getInstance()).getInt(_bestScoreKey) ?? 0;
 
   Future<void> saveScore(int score) async {
     final prefs = await SharedPreferences.getInstance();

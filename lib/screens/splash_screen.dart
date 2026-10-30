@@ -33,20 +33,20 @@ class _SplashScreenState extends State<SplashScreen> {
       Future<void>.delayed(_splashDuration),
     ]);
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 500),
-      pageBuilder: (_, _, _) => HomeScreen(repository: widget.repository),
-      transitionsBuilder: (_, animation, _, child) => FadeTransition(opacity: animation, child: child),
-    ));
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (_, _, _) => HomeScreen(repository: widget.repository),
+        transitionsBuilder: (_, animation, _, child) => FadeTransition(opacity: animation, child: child),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF5A0E14),
-      body: SizedBox.expand(
-        child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover),
-      ),
+      body: SizedBox.expand(child: Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover)),
     );
   }
 }

@@ -36,10 +36,7 @@ class SketchPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final scale = min(size.width / boardSize.width, size.height / boardSize.height);
     canvas.save();
-    canvas.translate(
-      (size.width - boardSize.width * scale) / 2,
-      (size.height - boardSize.height * scale) / 2,
-    );
+    canvas.translate((size.width - boardSize.width * scale) / 2, (size.height - boardSize.height * scale) / 2);
     canvas.scale(scale);
     canvas.clipRect(Offset.zero & boardSize);
 
@@ -67,12 +64,12 @@ class SketchPainter extends CustomPainter {
       case 'pg':
         r.polygon(_points(p), ink, fill: fill, width: width);
       case 'r':
-        r.polygon([
-          Offset(p[0], p[1]),
-          Offset(p[0] + p[2], p[1]),
-          Offset(p[0] + p[2], p[1] + p[3]),
-          Offset(p[0], p[1] + p[3]),
-        ], ink, fill: fill, width: width);
+        r.polygon(
+          [Offset(p[0], p[1]), Offset(p[0] + p[2], p[1]), Offset(p[0] + p[2], p[1] + p[3]), Offset(p[0], p[1] + p[3])],
+          ink,
+          fill: fill,
+          width: width,
+        );
       case 'c':
         r.circle(Offset(p[0], p[1]), p[2], ink, fill: fill, width: width);
       case 'tx':
@@ -82,13 +79,17 @@ class SketchPainter extends CustomPainter {
       case 'grass':
         _grass(r, p, ink, fill);
       case 'fig':
-        _figure(r, p, (e['a'] as List).map((v) => (v as num).toDouble()).toList(),
-            List<String>.from(e['x'] as List? ?? const []), ink);
+        _figure(
+          r,
+          p,
+          (e['a'] as List).map((v) => (v as num).toDouble()).toList(),
+          List<String>.from(e['x'] as List? ?? const []),
+          ink,
+        );
     }
   }
 
-  static List<Offset> _points(List<double> p) =>
-      [for (var i = 0; i + 1 < p.length; i += 2) Offset(p[i], p[i + 1])];
+  static List<Offset> _points(List<double> p) => [for (var i = 0; i + 1 < p.length; i += 2) Offset(p[i], p[i + 1])];
 
   static Color? _color(Object? hex) {
     if (hex is! String || !hex.startsWith('#') || hex.length != 7) return null;
@@ -129,33 +130,39 @@ class SketchPainter extends CustomPainter {
 
     r.cover(Path()..addRRect(RRect.fromRectAndRadius(rect, const Radius.circular(12))), Colors.white);
     r.cover(Path()..addPolygon(tailPts, true), Colors.white);
-    r.polyline([
-      Offset(rect.left + 10, rect.top),
-      Offset(rect.right - 10, rect.top),
-      Offset(rect.right, rect.top + 10),
-      Offset(rect.right, rect.bottom - 8),
-      Offset(rect.right - 10, rect.bottom),
-      tailPts[2],
-      tail,
-      tailPts[0],
-      Offset(rect.left + 10, rect.bottom),
-      Offset(rect.left, rect.bottom - 8),
-      Offset(rect.left, rect.top + 10),
-      Offset(rect.left + 10, rect.top),
-    ], ink, width: 1.8);
+    r.polyline(
+      [
+        Offset(rect.left + 10, rect.top),
+        Offset(rect.right - 10, rect.top),
+        Offset(rect.right, rect.top + 10),
+        Offset(rect.right, rect.bottom - 8),
+        Offset(rect.right - 10, rect.bottom),
+        tailPts[2],
+        tail,
+        tailPts[0],
+        Offset(rect.left + 10, rect.bottom),
+        Offset(rect.left, rect.bottom - 8),
+        Offset(rect.left, rect.top + 10),
+        Offset(rect.left + 10, rect.top),
+      ],
+      ink,
+      width: 1.8,
+    );
 
     final tp = TextPainter(textDirection: TextDirection.ltr);
     var size = 14.0;
     // Shrink long dialogues until they fit inside the bubble.
     while (size > 8) {
       tp
-        ..text = TextSpan(text: text, style: TextStyle(fontSize: size, fontWeight: FontWeight.w700))
+        ..text = TextSpan(
+          text: text,
+          style: TextStyle(fontSize: size, fontWeight: FontWeight.w700),
+        )
         ..layout(maxWidth: rect.width - 12);
       if (tp.height <= rect.height - 6) break;
       size -= 1;
     }
-    _text(r.canvas, text, Offset(rect.left + 6, rect.center.dy - tp.height / 2), size, ink,
-        maxWidth: rect.width - 12);
+    _text(r.canvas, text, Offset(rect.left + 6, rect.center.dy - tp.height / 2), size, ink, maxWidth: rect.width - 12);
   }
 
   void _grass(Rough r, List<double> p, Color ink, Color? flower) {
@@ -186,24 +193,34 @@ class SketchPainter extends CustomPainter {
 
     final has = extras.toSet();
     if (has.contains('hair_long')) {
-      r.polygon([
-        head + Offset(-12 * s, -9 * s),
-        head + Offset(-5 * s, -15 * s),
-        head + Offset(5 * s, -15 * s),
-        head + Offset(12 * s, -9 * s),
-        head + Offset(15 * s, 10 * s),
-        head + Offset(17 * s, 26 * s),
-        head + Offset(-17 * s, 26 * s),
-        head + Offset(-15 * s, 10 * s),
-      ], ink, fill: const Color(0xFF3E2723), width: 1.5);
+      r.polygon(
+        [
+          head + Offset(-12 * s, -9 * s),
+          head + Offset(-5 * s, -15 * s),
+          head + Offset(5 * s, -15 * s),
+          head + Offset(12 * s, -9 * s),
+          head + Offset(15 * s, 10 * s),
+          head + Offset(17 * s, 26 * s),
+          head + Offset(-17 * s, 26 * s),
+          head + Offset(-15 * s, 10 * s),
+        ],
+        ink,
+        fill: const Color(0xFF3E2723),
+        width: 1.5,
+      );
     }
     if (has.contains('dress')) {
-      r.polygon([
-        neck + Offset(-7 * s, 16 * s),
-        neck + Offset(7 * s, 16 * s),
-        neck + Offset(24 * s, 70 * s),
-        neck + Offset(-24 * s, 70 * s),
-      ], ink, fill: const Color(0xFFD81B60), width: 1.6);
+      r.polygon(
+        [
+          neck + Offset(-7 * s, 16 * s),
+          neck + Offset(7 * s, 16 * s),
+          neck + Offset(24 * s, 70 * s),
+          neck + Offset(-24 * s, 70 * s),
+        ],
+        ink,
+        fill: const Color(0xFFD81B60),
+        width: 1.6,
+      );
     }
 
     r.polyline([neck, hip], ink, width: w);
@@ -228,17 +245,21 @@ class SketchPainter extends CustomPainter {
     if (has.contains('bandolier')) {
       r.polyline([shoulder + Offset(-10 * s, 0), hip + Offset(8 * s, 0)], const Color(0xFF8D6E63), width: 4 * s);
       for (var t = 0.15; t < 0.9; t += 0.15) {
-        r.dot(Offset.lerp(shoulder + Offset(-10 * s, 0), hip + Offset(8 * s, 0), t)!, 1.6 * s,
-            const Color(0xFFFFC107));
+        r.dot(Offset.lerp(shoulder + Offset(-10 * s, 0), hip + Offset(8 * s, 0), t)!, 1.6 * s, const Color(0xFFFFC107));
       }
     }
     if (has.contains('shades_back')) {
-      r.polygon([
-        neck + Offset(-9 * s, 2 * s),
-        neck + Offset(9 * s, 2 * s),
-        neck + Offset(7 * s, 7 * s),
-        neck + Offset(-7 * s, 7 * s),
-      ], ink, fill: kInk, width: 1.2);
+      r.polygon(
+        [
+          neck + Offset(-9 * s, 2 * s),
+          neck + Offset(9 * s, 2 * s),
+          neck + Offset(7 * s, 7 * s),
+          neck + Offset(-7 * s, 7 * s),
+        ],
+        ink,
+        fill: kInk,
+        width: 1.2,
+      );
     }
 
     // Head on top of everything else on the body.
@@ -253,32 +274,44 @@ class SketchPainter extends CustomPainter {
       r.dot(head + Offset(4.5 * s, -2 * s), 1.6 * s, ink);
     }
     if (has.contains('mustache')) {
-      r.polyline([
-        head + Offset(-7 * s, 6 * s),
-        head + Offset(-2 * s, 3.5 * s),
-        head + Offset(0, 4.5 * s),
-        head + Offset(2 * s, 3.5 * s),
-        head + Offset(7 * s, 6 * s),
-      ], ink, width: 2.2 * s);
+      r.polyline(
+        [
+          head + Offset(-7 * s, 6 * s),
+          head + Offset(-2 * s, 3.5 * s),
+          head + Offset(0, 4.5 * s),
+          head + Offset(2 * s, 3.5 * s),
+          head + Offset(7 * s, 6 * s),
+        ],
+        ink,
+        width: 2.2 * s,
+      );
     } else {
-      r.polyline([head + Offset(-4 * s, 5 * s), head + Offset(0, 7 * s), head + Offset(4 * s, 5 * s)], ink,
-          width: 1.4 * s);
+      r.polyline(
+        [head + Offset(-4 * s, 5 * s), head + Offset(0, 7 * s), head + Offset(4 * s, 5 * s)],
+        ink,
+        width: 1.4 * s,
+      );
     }
     if (has.contains('cap')) {
-      r.polygon([
-        head + Offset(-13 * s, -8 * s),
-        head + Offset(-10 * s, -18 * s),
-        head + Offset(10 * s, -18 * s),
-        head + Offset(13 * s, -8 * s),
-      ], ink, fill: const Color(0xFF8D6E63), width: 1.6);
+      r.polygon(
+        [
+          head + Offset(-13 * s, -8 * s),
+          head + Offset(-10 * s, -18 * s),
+          head + Offset(10 * s, -18 * s),
+          head + Offset(13 * s, -8 * s),
+        ],
+        ink,
+        fill: const Color(0xFF8D6E63),
+        width: 1.6,
+      );
       r.polyline([head + Offset(-16 * s, -8 * s), head + Offset(16 * s, -8 * s)], ink, width: 2.4);
     }
     if (has.contains('ponytail')) {
-      r.polyline([
-        head + Offset(11 * s, -8 * s),
-        head + Offset(20 * s, -4 * s),
-        head + Offset(22 * s, 8 * s),
-      ], const Color(0xFF3E2723), width: 4 * s);
+      r.polyline(
+        [head + Offset(11 * s, -8 * s), head + Offset(20 * s, -4 * s), head + Offset(22 * s, 8 * s)],
+        const Color(0xFF3E2723),
+        width: 4 * s,
+      );
     }
   }
 

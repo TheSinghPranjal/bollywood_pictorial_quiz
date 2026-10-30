@@ -54,8 +54,7 @@ class Rough {
     }
   }
 
-  void dot(Offset c, double r, Color color) =>
-      canvas.drawCircle(c, r, Paint()..color = color);
+  void dot(Offset c, double r, Color color) => canvas.drawCircle(c, r, Paint()..color = color);
 
   /// Closed shape outlined by hand and filled with pencil hatching.
   void polygon(List<Offset> pts, Color color, {Color? fill, double width = 2}) {

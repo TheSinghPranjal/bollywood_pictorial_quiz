@@ -8,10 +8,8 @@ enum QuestionKind {
   const QuestionKind(this.label);
   final String label;
 
-  static QuestionKind parse(String? value) => QuestionKind.values.firstWhere(
-    (k) => k.name == value,
-    orElse: () => QuestionKind.movie,
-  );
+  static QuestionKind parse(String? value) =>
+      QuestionKind.values.firstWhere((k) => k.name == value, orElse: () => QuestionKind.movie);
 }
 
 /// One quiz question. JSON uses short keys to keep the stored data small:
@@ -49,9 +47,7 @@ class Question {
     if (options.length != 4 || answer < 0 || answer >= options.length) {
       throw FormatException('Question ${json['id']} needs 4 options and a valid answer');
     }
-    final sketch = (json['s'] as List? ?? const [])
-        .map((e) => Map<String, dynamic>.from(e as Map))
-        .toList();
+    final sketch = (json['s'] as List? ?? const []).map((e) => Map<String, dynamic>.from(e as Map)).toList();
     final imageUrl = (json['img'] as String? ?? '').trim();
     if (sketch.isEmpty && imageUrl.isEmpty) {
       throw FormatException('Question ${json['id']} needs a picture (s or img)');
@@ -79,8 +75,6 @@ class QuestionBank {
 
   factory QuestionBank.fromJson(Map<String, dynamic> json) => QuestionBank(
     version: json['v'] as int? ?? 0,
-    questions: (json['q'] as List)
-        .map((e) => Question.fromJson(Map<String, dynamic>.from(e as Map)))
-        .toList(),
+    questions: (json['q'] as List).map((e) => Question.fromJson(Map<String, dynamic>.from(e as Map))).toList(),
   );
 }

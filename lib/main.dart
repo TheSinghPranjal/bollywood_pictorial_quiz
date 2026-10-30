@@ -25,7 +25,12 @@ class BollywoodQuizApp extends StatelessWidget {
           backgroundColor: kPaper,
           foregroundColor: kInk,
           elevation: 0,
-          titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, fontStyle: FontStyle.italic, color: kInk),
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            fontStyle: FontStyle.italic,
+            color: kInk,
+          ),
         ),
         textTheme: ThemeData.light().textTheme.apply(bodyColor: kInk, displayColor: kInk),
       ),

@@ -65,6 +65,8 @@ flutter:
     - assets/data/questions.json
     - assets/images/home_bg.png
     - assets/images/splash_bg.png
+    - assets/images/quiz_bg.png
+    - assets/images/result_bg.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

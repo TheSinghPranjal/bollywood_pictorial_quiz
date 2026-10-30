@@ -6,11 +6,17 @@ import '../data/question.dart';
 import '../data/question_repository.dart';
 import '../sketch/sketch_painter.dart';
 import '../sketch/sketch_picture.dart';
-import '../widgets/sketch_box.dart';
+import '../widgets/cinema.dart';
 import 'result_screen.dart';
 
 const _correctFill = Color(0xFF66BB6A);
 const _wrongFill = Color(0xFFE57373);
+
+/// Content is capped to phone width so it doesn't stretch on iPad.
+const _maxContentWidth = 560.0;
+
+/// Below this height the screen scrolls instead of squeezing the picture away.
+const _minContentHeight = 600.0;
 
 /// Questions per round; each round picks a fresh random set.
 const kRoundSize = 10;
@@ -63,10 +69,16 @@ class _QuizScreenState extends State<QuizScreen> {
     }
     await widget.repository.saveScore(_score);
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (_) => ResultScreen(score: _score, total: _order.length, questions: widget.questions,
-          repository: widget.repository),
-    ));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) => ResultScreen(
+          score: _score,
+          total: _order.length,
+          questions: widget.questions,
+          repository: widget.repository,
+        ),
+      ),
+    );
   }
 
   Color? _fillFor(String option) {
@@ -78,92 +90,361 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: kPlum,
+      body: CinemaBackground(
+        image: 'assets/images/quiz_bg.png',
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final content = Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: _maxContentWidth),
+                  child: Padding(padding: const EdgeInsets.fromLTRB(16, 8, 16, 12), child: _content()),
+                ),
+              );
+              // Everything fits on one screen; only very short windows
+              // (e.g. landscape phones) fall back to scrolling.
+              if (constraints.maxHeight >= _minContentHeight) return content;
+              return SingleChildScrollView(
+                child: SizedBox(height: _minContentHeight, child: content),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _content() {
     final q = _current;
     final answered = _picked != null;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${_index + 1} / ${_order.length}'),
-        actions: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Text('Score $_score', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+    final correct = _picked == q.correctOption;
+    return Column(
+      children: [
+        Row(
+          children: [
+            const _BackButton(),
+            Expanded(
+              child: Center(child: _CounterPill(text: '${_index + 1} / ${_order.length}')),
+            ),
+            StarPill(text: 'Score $_score'),
+          ],
+        ),
+        const SizedBox(height: 10),
+        // Below the pinned top bar, the question is one block centred in the
+        // remaining space: it fills a phone and sits neatly in the middle of
+        // an iPad.
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: _KindBanner(kind: q.kind),
+              ),
+              const SizedBox(height: 8),
+              // The picture shrinks to whatever height is left, so the screen never scrolls.
+              Flexible(
+                child: AspectRatio(
+                  aspectRatio: SketchPainter.boardSize.aspectRatio,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: kPaper,
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(color: kGold, width: 3),
+                      boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 12, offset: Offset(0, 4))],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          SketchPicture(key: ValueKey(q.id), question: q),
+                          if (q.imageUrl.isNotEmpty && q.credit.isNotEmpty)
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              left: 40,
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  color: Colors.black54,
+                                  child: Text(
+                                    'Photo: ${q.credit}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 9, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // After answering, the same card shows the verdict and fun fact.
+              _CreamCard(
+                child: answered
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            correct ? 'Sahi jawab!' : 'Oops! It was "${q.correctOption}".',
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              color: correct ? const Color(0xFF1B7A35) : const Color(0xFFB3261E),
+                            ),
+                          ),
+                          if (q.fact.isNotEmpty) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              q.fact,
+                              textAlign: TextAlign.center,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 13.5, color: kPlum, height: 1.25),
+                            ),
+                          ],
+                        ],
+                      )
+                    : Text(
+                        q.text,
+                        textAlign: TextAlign.center,
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: kPlum, height: 1.25),
+                      ),
+              ),
+              const SizedBox(height: 10),
+              for (final (i, option) in _options.indexed) ...[
+                _OptionTile(
+                  key: ValueKey('option_$i'),
+                  letter: String.fromCharCode(65 + i),
+                  label: option,
+                  fill: _fillFor(option),
+                  onTap: answered ? null : () => _pick(option),
+                  trailing: answered && option == q.correctOption
+                      ? Icons.check
+                      : answered && option == _picked
+                      ? Icons.close
+                      : null,
+                ),
+                const SizedBox(height: 8),
+              ],
+              const SizedBox(height: 4),
+              FractionallySizedBox(
+                widthFactor: 0.6,
+                child: GoldButton(
+                  label: _index + 1 < _order.length ? 'Next' : 'See result',
+                  icon: Icons.chevron_right_rounded,
+                  iconAfter: true,
+                  height: 50,
+                  fontSize: 20,
+                  onTap: answered ? _next : null,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BackButton extends StatelessWidget {
+  const _BackButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: kCream,
+      shape: const CircleBorder(side: BorderSide(color: Color(0xFFE0B860), width: 2)),
+      elevation: 6,
+      child: IconButton(
+        icon: const Icon(Icons.arrow_back_ios_new_rounded, color: kPlum, size: 20),
+        visualDensity: VisualDensity.compact,
+        tooltip: 'Back',
+        onPressed: () => Navigator.of(context).maybePop(),
+      ),
+    );
+  }
+}
+
+class _CounterPill extends StatelessWidget {
+  const _CounterPill({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 6),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [Color(0xFFFFF6D8), Color(0xFFF7DC98)]),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: const Color(0xFFE5304A), width: 2.5),
+        boxShadow: const [BoxShadow(color: Colors.black38, blurRadius: 8, offset: Offset(0, 3))],
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: kPlum),
+      ),
+    );
+  }
+}
+
+/// Red marquee banner with a clapperboard, naming the question type.
+class _KindBanner extends StatelessWidget {
+  const _KindBanner({required this.kind});
+
+  final QuestionKind kind;
+
+  static const _icons = {
+    QuestionKind.movie: Icons.movie_creation,
+    QuestionKind.actor: Icons.person,
+    QuestionKind.actress: Icons.face_3,
+    QuestionKind.issue: Icons.campaign,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(6, 4, 14, 4),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [Color(0xFFB0102A), Color(0xFF6E0A1A)]),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFFFF4D4D), width: 2),
+        boxShadow: const [BoxShadow(color: Color(0x88FF3030), blurRadius: 12)],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(8)),
+            child: Icon(_icons[kind], color: Colors.white, size: 18),
+          ),
+          const SizedBox(width: 10),
+          Flexible(
+            child: FittedBox(
+              child: Text(
+                kind.label,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: kGold,
+                  shadows: [Shadow(color: Colors.black54, offset: Offset(0, 2), blurRadius: 3)],
+                ),
+              ),
             ),
           ),
         ],
       ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
-          children: [
-            LinearProgressIndicator(
-              value: (_index + (answered ? 1 : 0)) / _order.length,
-              color: kInk,
-              backgroundColor: Colors.black12,
-            ),
-            const SizedBox(height: 14),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: SketchBox(
-                fill: const Color(0xFFF6C343),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                seed: _index + 11,
-                child: Text(q.kind.label, style: const TextStyle(fontWeight: FontWeight.w700)),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SketchBox(
-              padding: const EdgeInsets.all(6),
-              seed: _index + 5,
-              child: AspectRatio(
-                aspectRatio: SketchPainter.boardSize.aspectRatio,
-                child: ClipRect(child: SketchPicture(key: ValueKey(q.id), question: q)),
-              ),
-            ),
-            if (q.imageUrl.isNotEmpty && q.credit.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text('Photo: ${q.credit}',
-                    textAlign: TextAlign.right, style: const TextStyle(fontSize: 11, color: Colors.black54)),
-              ),
-            const SizedBox(height: 14),
-            Text(q.text, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: kInk)),
-            const SizedBox(height: 14),
-            for (final (i, option) in _options.indexed) ...[
-              SketchButton(
-                key: ValueKey('option_$i'),
-                label: option,
-                seed: _index * 4 + i,
-                fill: _fillFor(option),
-                onTap: answered ? null : () => _pick(option),
-                trailing: answered && option == q.correctOption
-                    ? const Icon(Icons.check, color: kInk)
-                    : answered && option == _picked
-                        ? const Icon(Icons.close, color: kInk)
-                        : null,
-              ),
-              const SizedBox(height: 10),
-            ],
-            if (answered) ...[
-              const SizedBox(height: 4),
-              Text(
-                _picked == q.correctOption ? 'Sahi jawab!' : 'Oops! It was "${q.correctOption}".',
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, fontStyle: FontStyle.italic),
-              ),
-              if (q.fact.isNotEmpty) ...[
-                const SizedBox(height: 6),
-                Text(q.fact, style: const TextStyle(fontSize: 15, color: Colors.black87)),
+    );
+  }
+}
+
+class _CreamCard extends StatelessWidget {
+  const _CreamCard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFFFFF8E6), Color(0xFFF5E2B8)],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFE0B860), width: 2),
+        boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 10, offset: Offset(0, 4))],
+      ),
+      child: child,
+    );
+  }
+}
+
+/// One answer choice: a cream pill with a lettered badge (A–D).
+class _OptionTile extends StatelessWidget {
+  const _OptionTile({
+    super.key,
+    required this.letter,
+    required this.label,
+    required this.onTap,
+    this.fill,
+    this.trailing,
+  });
+
+  final String letter;
+  final String label;
+  final VoidCallback? onTap;
+  final Color? fill;
+  final IconData? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final radius = BorderRadius.circular(18);
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        border: Border.all(color: const Color(0xFFE0B860), width: 2),
+        boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 6, offset: Offset(0, 3))],
+      ),
+      child: Material(
+        color: fill ?? kCream,
+        borderRadius: radius,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            child: Row(
+              children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Color(0xFF4B1C8C), Color(0xFF1E0838)],
+                    ),
+                    border: Border.all(color: const Color(0xFFE0A030), width: 2.5),
+                  ),
+                  child: Text(
+                    letter,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: kPlum),
+                  ),
+                ),
+                if (trailing != null) Icon(trailing, color: kPlum, size: 24),
               ],
-              const SizedBox(height: 16),
-              SketchButton(
-                label: _index + 1 < _order.length ? 'Next question' : 'See result',
-                onTap: _next,
-                fill: const Color(0xFF90CAF9),
-                seed: 99,
-                trailing: const Icon(Icons.arrow_forward, color: kInk),
-              ),
-            ],
-          ],
+            ),
+          ),
         ),
       ),
     );

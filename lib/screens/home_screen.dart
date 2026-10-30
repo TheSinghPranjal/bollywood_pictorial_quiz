@@ -5,16 +5,8 @@ import 'package:flutter/material.dart';
 import '../data/question.dart';
 import '../data/image_cache.dart';
 import '../data/question_repository.dart';
+import '../widgets/cinema.dart';
 import 'quiz_screen.dart';
-
-/// Size in pixels of assets/images/home_bg.png. Tap areas below are measured
-/// in the same pixels so they stay on top of the buttons drawn in the image.
-const _bgSize = Size(869, 1810);
-const _settingsRect = Rect.fromLTRB(40, 30, 132, 120);
-const _playRect = Rect.fromLTRB(115, 1065, 755, 1250);
-const _rewardsRect = Rect.fromLTRB(68, 1378, 290, 1568);
-const _categoriesRect = Rect.fromLTRB(325, 1378, 548, 1568);
-const _leaderboardRect = Rect.fromLTRB(582, 1378, 805, 1568);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.repository});
@@ -60,9 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (all == null) return;
     final questions = kind == null ? all : all.where((q) => q.kind == kind).toList();
     if (questions.isEmpty) return;
-    await Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => QuizScreen(questions: questions, repository: widget.repository),
-    ));
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => QuizScreen(questions: questions, repository: widget.repository),
+      ),
+    );
     final best = await widget.repository.bestScore();
     if (mounted) setState(() => _best = best);
   }
@@ -81,18 +75,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Categories', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
             ),
             for (final kind in QuestionKind.values)
-              Builder(builder: (_) {
-                final count = questions.where((q) => q.kind == kind).length;
-                return ListTile(
-                  title: Text(kind.label),
-                  trailing: Text('${min(kRoundSize, count)} of $count'),
-                  enabled: count > 0,
-                  onTap: () {
-                    Navigator.of(sheetContext).pop();
-                    _start(kind);
-                  },
-                );
-              }),
+              Builder(
+                builder: (_) {
+                  final count = questions.where((q) => q.kind == kind).length;
+                  return ListTile(
+                    title: Text(kind.label),
+                    trailing: Text('${min(kRoundSize, count)} of $count'),
+                    enabled: count > 0,
+                    onTap: () {
+                      Navigator.of(sheetContext).pop();
+                      _start(kind);
+                    },
+                  );
+                },
+              ),
           ],
         ),
       ),
@@ -105,9 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (dialogContext) => AlertDialog(
         title: const Text('Rewards'),
         content: Text('Best score: $_best / $kRoundSize'),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(dialogContext).pop(), child: const Text('OK')),
-        ],
+        actions: [TextButton(onPressed: () => Navigator.of(dialogContext).pop(), child: const Text('OK'))],
       ),
     );
   }
@@ -122,80 +116,195 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final status = _error ?? (_questions == null ? 'Loading questions...' : null);
     return Scaffold(
-      backgroundColor: const Color(0xFF5A0E14),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          // Same maths as BoxFit.cover with centered alignment, so tap areas
-          // line up with the picture on any screen shape.
-          final screen = constraints.biggest;
-          final scale = max(screen.width / _bgSize.width, screen.height / _bgSize.height);
-          final offset = Offset(
-            (screen.width - _bgSize.width * scale) / 2,
-            (screen.height - _bgSize.height * scale) / 2,
-          );
-          Rect place(Rect r) => Rect.fromLTRB(
-            offset.dx + r.left * scale,
-            offset.dy + r.top * scale,
-            offset.dx + r.right * scale,
-            offset.dy + r.bottom * scale,
-          );
-
-          return Stack(
-            children: [
-              Positioned.fill(
-                child: Image.asset('assets/images/home_bg.png', fit: BoxFit.cover),
-              ),
-              _Hotspot(rect: place(_settingsRect), label: 'Settings', round: true, onTap: () => _comingSoon('Settings')),
-              _Hotspot(rect: place(_playRect), label: 'Play Quiz', onTap: _start),
-              _Hotspot(rect: place(_rewardsRect), label: 'Rewards', onTap: _showRewards),
-              _Hotspot(rect: place(_categoriesRect), label: 'Categories', onTap: _showCategories),
-              _Hotspot(rect: place(_leaderboardRect), label: 'Leaderboard', onTap: () => _comingSoon('Leaderboard')),
-              if (status != null)
-                Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 24,
-                  child: SafeArea(
+      backgroundColor: kMaroon,
+      body: CinemaBackground(
+        image: 'assets/images/home_bg.png',
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    _RoundIconButton(icon: Icons.settings, label: 'Settings', onTap: () => _comingSoon('Settings')),
+                    const Spacer(),
+                    StarPill(text: 'Best $_best'),
+                  ],
+                ),
+                const Spacer(flex: 2),
+                const _Title(),
+                const Spacer(flex: 5),
+                if (status != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(12)),
-                      child: Text(status, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white)),
+                      child: Text(
+                        status,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
+                GoldButton(
+                  label: 'Play Quiz',
+                  icon: Icons.play_arrow_rounded,
+                  onTap: _questions == null ? null : _start,
                 ),
-            ],
-          );
-        },
+                const SizedBox(height: 28),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _MenuTile(
+                        label: 'Rewards',
+                        icon: Icons.emoji_events,
+                        colors: const [Color(0xFF9C3FD6), Color(0xFF4A1580)],
+                        onTap: _showRewards,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: _MenuTile(
+                        label: 'Categories',
+                        icon: Icons.movie_filter,
+                        colors: const [Color(0xFF2F7BF0), Color(0xFF0D3A9A)],
+                        onTap: _showCategories,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: _MenuTile(
+                        label: 'Leaderboard',
+                        icon: Icons.leaderboard,
+                        colors: const [Color(0xFF2FB463), Color(0xFF0E6B33)],
+                        onTap: () => _comingSoon('Leaderboard'),
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(flex: 2),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
-/// Invisible button laid over a button that is part of the background image.
-class _Hotspot extends StatelessWidget {
-  const _Hotspot({required this.rect, required this.label, required this.onTap, this.round = false});
-
-  final Rect rect;
-  final String label;
-  final VoidCallback onTap;
-  final bool round;
+/// "Bollywood" in outlined gold letters over a red "Pictorial Quiz" banner.
+class _Title extends StatelessWidget {
+  const _Title();
 
   @override
   Widget build(BuildContext context) {
-    final shape = round
-        ? const CircleBorder()
-        : RoundedRectangleBorder(borderRadius: BorderRadius.circular(rect.height / 4));
-    return Positioned.fromRect(
-      rect: rect,
-      child: Semantics(
-        button: true,
-        label: label,
-        child: Material(
-          type: MaterialType.transparency,
-          shape: shape,
-          clipBehavior: Clip.antiAlias,
-          child: InkWell(onTap: onTap, splashColor: Colors.white24, highlightColor: Colors.white10),
+    return Column(
+      children: [
+        const FittedBox(child: GoldTitleText('Bollywood', fontSize: 54)),
+        Transform.translate(
+          offset: const Offset(0, -4),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFE5304A), Color(0xFF9E0F2A)],
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: kGold, width: 3),
+              boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 12, offset: Offset(0, 4))],
+            ),
+            child: const Text(
+              'Pictorial Quiz',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                shadows: [Shadow(color: Color(0xFF6B0A1C), offset: Offset(0, 2))],
+              ),
+            ),
+          ),
         ),
+      ],
+    );
+  }
+}
+
+class _MenuTile extends StatelessWidget {
+  const _MenuTile({required this.label, required this.icon, required this.colors, required this.onTap});
+
+  final String label;
+  final IconData icon;
+  final List<Color> colors;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final radius = BorderRadius.circular(20);
+    return AspectRatio(
+      aspectRatio: 1.1,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          border: Border.all(color: Colors.white54, width: 2),
+          boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 10, offset: Offset(0, 5))],
+        ),
+        child: Material(
+          borderRadius: radius,
+          clipBehavior: Clip.antiAlias,
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: colors),
+            ),
+            child: InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
+                      size: 40,
+                      color: kGold,
+                      shadows: const [Shadow(color: Colors.black38, blurRadius: 6)],
+                    ),
+                    const SizedBox(height: 6),
+                    FittedBox(
+                      child: Text(
+                        label,
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RoundIconButton extends StatelessWidget {
+  const _RoundIconButton({required this.icon, required this.label, required this.onTap});
+
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: const Color(0xCC3A0A10),
+      shape: const CircleBorder(side: BorderSide(color: kGold, width: 2)),
+      child: IconButton(
+        icon: Icon(icon, color: kGold),
+        tooltip: label,
+        onPressed: onTap,
       ),
     );
   }

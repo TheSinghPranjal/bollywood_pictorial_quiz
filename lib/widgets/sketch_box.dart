@@ -50,14 +50,7 @@ class _BoxPainter extends CustomPainter {
 
 /// Tappable sketch-style button.
 class SketchButton extends StatelessWidget {
-  const SketchButton({
-    super.key,
-    required this.label,
-    required this.onTap,
-    this.fill,
-    this.seed = 1,
-    this.trailing,
-  });
+  const SketchButton({super.key, required this.label, required this.onTap, this.fill, this.seed = 1, this.trailing});
 
   final String label;
   final VoidCallback? onTap;

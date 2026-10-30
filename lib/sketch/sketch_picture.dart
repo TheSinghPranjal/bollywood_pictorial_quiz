@@ -32,17 +32,15 @@ class SketchPicture extends StatelessWidget {
       alignment: const Alignment(0, -0.5),
       width: double.infinity,
       height: double.infinity,
-      placeholder: (_, _) => question.sketch.isEmpty
-          ? const Center(child: CircularProgressIndicator(color: kInk))
-          : vector,
+      placeholder: (_, _) =>
+          question.sketch.isEmpty ? const Center(child: CircularProgressIndicator(color: kInk)) : vector,
       errorWidget: (_, _, _) => question.sketch.isEmpty ? const _Offline() : vector,
     );
   }
 
   /// String.hashCode may change between runs; this keeps each sketch's
   /// wobble the same every time the app opens.
-  static int _stableHash(String s) =>
-      s.codeUnits.fold(17, (h, c) => (h * 31 + c) & 0x7fffffff);
+  static int _stableHash(String s) => s.codeUnits.fold(17, (h, c) => (h * 31 + c) & 0x7fffffff);
 }
 
 class _Offline extends StatelessWidget {
