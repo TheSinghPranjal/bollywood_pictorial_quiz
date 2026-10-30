@@ -16,6 +16,11 @@ class QuestionRepository {
   static const _assetPath = 'assets/data/questions.json';
   static const _downloadedKey = 'downloaded_questions_json';
   static const _bestScoreKey = 'best_score';
+  static const _roundSizeKey = 'round_size';
+
+  /// Questions per round the player can pick in Settings.
+  static const roundSizes = [10, 20, 30];
+  static const defaultRoundSize = 10;
 
   final http.Client _client;
 
@@ -55,6 +60,13 @@ class QuestionRepository {
   }
 
   Future<int> bestScore() async => (await SharedPreferences.getInstance()).getInt(_bestScoreKey) ?? 0;
+
+  Future<int> roundSize() async {
+    final saved = (await SharedPreferences.getInstance()).getInt(_roundSizeKey);
+    return roundSizes.contains(saved) ? saved! : defaultRoundSize;
+  }
+
+  Future<void> saveRoundSize(int size) async => (await SharedPreferences.getInstance()).setInt(_roundSizeKey, size);
 
   Future<void> saveScore(int score) async {
     final prefs = await SharedPreferences.getInstance();

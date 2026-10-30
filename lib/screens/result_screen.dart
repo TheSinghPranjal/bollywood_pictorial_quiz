@@ -15,12 +15,14 @@ class ResultScreen extends StatelessWidget {
     required this.total,
     required this.questions,
     required this.repository,
+    required this.roundSize,
   });
 
   final int score;
   final int total;
   final List<Question> questions;
   final QuestionRepository repository;
+  final int roundSize;
 
   String get _title {
     final ratio = score / total;
@@ -54,7 +56,8 @@ class ResultScreen extends StatelessWidget {
                       colors: const [Color(0xFFFFE680), Color(0xFFFFC21A)],
                       onTap: () => Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (_) => QuizScreen(questions: questions, repository: repository),
+                          builder: (_) =>
+                              QuizScreen(questions: questions, repository: repository, roundSize: roundSize),
                         ),
                       ),
                     ),

@@ -31,13 +31,11 @@ void main() {
 
   testWidgets('every sketch paints without errors', (tester) async {
     for (final q in bank.questions) {
-      await tester.pumpWidget(Center(
-        child: SizedBox(
-          width: 320,
-          height: 220,
-          child: CustomPaint(painter: SketchPainter(q.sketch, seed: 1)),
+      await tester.pumpWidget(
+        Center(
+          child: SizedBox(width: 320, height: 220, child: CustomPaint(painter: SketchPainter(q.sketch, seed: 1))),
         ),
-      ));
+      );
       expect(tester.takeException(), isNull, reason: q.id);
     }
   });
@@ -49,9 +47,11 @@ void main() {
       ..devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     final q = bank.questions.first;
-    await tester.pumpWidget(MaterialApp(
-      home: QuizScreen(questions: [q], repository: QuestionRepository(), random: Random(1)),
-    ));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QuizScreen(questions: [q], repository: QuestionRepository(), random: Random(1)),
+      ),
+    );
 
     expect(find.text(q.text), findsOneWidget);
     await tester.tap(find.text(q.correctOption));
@@ -60,5 +60,27 @@ void main() {
     expect(find.text('Sahi jawab!'), findsOneWidget);
     expect(find.text('Score 1'), findsOneWidget);
     expect(find.byIcon(Icons.check), findsOneWidget);
+  });
+
+  test('round size defaults to 10 and remembers the chosen value', () async {
+    SharedPreferences.setMockInitialValues({});
+    final repository = QuestionRepository();
+    expect(await repository.roundSize(), 10);
+    await repository.saveRoundSize(30);
+    expect(await repository.roundSize(), 30);
+  });
+
+  testWidgets('a round uses the chosen number of questions', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    tester.view
+      ..physicalSize = const Size(1080, 2400)
+      ..devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: QuizScreen(questions: bank.questions, repository: QuestionRepository(), roundSize: 20, random: Random(1)),
+      ),
+    );
+    expect(find.text('1 / 20'), findsOneWidget);
   });
 }

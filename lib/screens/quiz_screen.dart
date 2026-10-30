@@ -18,14 +18,20 @@ const _maxContentWidth = 560.0;
 /// Below this height the screen scrolls instead of squeezing the picture away.
 const _minContentHeight = 600.0;
 
-/// Questions per round; each round picks a fresh random set.
-const kRoundSize = 10;
-
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key, required this.questions, required this.repository, this.random});
+  const QuizScreen({
+    super.key,
+    required this.questions,
+    required this.repository,
+    this.roundSize = QuestionRepository.defaultRoundSize,
+    this.random,
+  });
 
   final List<Question> questions;
   final QuestionRepository repository;
+
+  /// Questions per round; each round picks a fresh random set.
+  final int roundSize;
   final Random? random;
 
   @override
@@ -34,7 +40,7 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   late final Random _random = widget.random ?? Random();
-  late final List<Question> _order = ([...widget.questions]..shuffle(_random)).take(kRoundSize).toList();
+  late final List<Question> _order = ([...widget.questions]..shuffle(_random)).take(widget.roundSize).toList();
   late List<String> _options;
   int _index = 0;
   int _score = 0;
@@ -75,6 +81,7 @@ class _QuizScreenState extends State<QuizScreen> {
           score: _score,
           total: _order.length,
           questions: widget.questions,
+          roundSize: widget.roundSize,
           repository: widget.repository,
         ),
       ),

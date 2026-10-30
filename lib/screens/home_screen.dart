@@ -20,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Question>? _questions;
   int _best = 0;
+  int _roundSize = QuestionRepository.defaultRoundSize;
   String? _error;
 
   @override
@@ -32,10 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final questions = await widget.repository.loadLocal();
       final best = await widget.repository.bestScore();
+      final roundSize = await widget.repository.roundSize();
       if (!mounted) return;
       setState(() {
         _questions = questions;
         _best = best;
+        _roundSize = roundSize;
       });
       // Pull extra questions and save their photos on the phone, without
       // blocking the game.
@@ -54,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (questions.isEmpty) return;
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(questions: questions, repository: widget.repository),
+        builder: (_) => QuizScreen(questions: questions, repository: widget.repository, roundSize: _roundSize),
       ),
     );
     final best = await widget.repository.bestScore();
@@ -80,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final count = questions.where((q) => q.kind == kind).length;
                   return ListTile(
                     title: Text(kind.label),
-                    trailing: Text('${min(kRoundSize, count)} of $count'),
+                    trailing: Text('${min(_roundSize, count)} of $count'),
                     enabled: count > 0,
                     onTap: () {
                       Navigator.of(sheetContext).pop();
@@ -100,8 +103,47 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Rewards'),
-        content: Text('Best score: $_best / $kRoundSize'),
+        content: Text('Best score: $_best'),
         actions: [TextButton(onPressed: () => Navigator.of(dialogContext).pop(), child: const Text('OK'))],
+      ),
+    );
+  }
+
+  void _showSettings() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (sheetContext) => SafeArea(
+        child: StatefulBuilder(
+          builder: (_, setSheetState) => Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Settings', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                const SizedBox(height: 16),
+                const Text('Questions per round', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: double.infinity,
+                  child: SegmentedButton<int>(
+                    segments: [
+                      for (final size in QuestionRepository.roundSizes)
+                        ButtonSegment(value: size, label: Text('$size')),
+                    ],
+                    selected: {_roundSize},
+                    onSelectionChanged: (selection) {
+                      final size = selection.single;
+                      setState(() => _roundSize = size);
+                      setSheetState(() {});
+                      widget.repository.saveRoundSize(size);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -126,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Row(
                   children: [
-                    _RoundIconButton(icon: Icons.settings, label: 'Settings', onTap: () => _comingSoon('Settings')),
+                    _RoundIconButton(icon: Icons.settings, label: 'Settings', onTap: _showSettings),
                     const Spacer(),
                     StarPill(text: 'Best $_best'),
                   ],
