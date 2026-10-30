@@ -1,6 +1,3 @@
-import 'dart:math';
-import 'dart:ui' show PathMetric;
-
 import 'package:flutter/material.dart';
 
 import '../data/question.dart';
@@ -96,7 +93,7 @@ class _ScoreMarquee extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 34),
           child: CustomPaint(
-            painter: _MarqueePainter(),
+            painter: MarqueePainter(),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(26, 30, 26, 24),
@@ -126,88 +123,10 @@ class _ScoreMarquee extends StatelessWidget {
             ),
           ),
         ),
-        const Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [_Star(size: 20), _Star(size: 40), _Star(size: 62), _Star(size: 40), _Star(size: 20)],
-        ),
+        const StarCrown(),
       ],
     );
   }
-}
-
-class _Star extends StatelessWidget {
-  const _Star({required this.size});
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.star_rounded,
-      size: size,
-      color: kGold,
-      shadows: const [
-        Shadow(color: Color(0xFFB86E00), offset: Offset(0, 2)),
-        Shadow(color: Colors.black45, blurRadius: 8),
-      ],
-    );
-  }
-}
-
-class _MarqueePainter extends CustomPainter {
-  static const _frame = 16.0;
-  static const _bulbGap = 22.0;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final outer = RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(30));
-    canvas.drawShadow(Path()..addRRect(outer), Colors.black, 10, false);
-    canvas.drawRRect(
-      outer,
-      Paint()
-        ..shader = const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFE5304A), Color(0xFF8E0C22)],
-        ).createShader(Offset.zero & size),
-    );
-    final inner = outer.deflate(_frame);
-    canvas.drawRRect(
-      inner,
-      Paint()
-        ..shader = const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFFFFAEE), Color(0xFFF7E3BC)],
-        ).createShader(inner.outerRect),
-    );
-    canvas.drawRRect(
-      inner,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = kGold,
-    );
-
-    // Bulbs evenly spaced around the middle of the red frame.
-    final track = Path()..addRRect(outer.deflate(_frame / 2));
-    final glow = Paint()
-      ..color = const Color(0x99FFD54F)
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
-    final bulb = Paint()..color = const Color(0xFFFFF3C4);
-    for (final PathMetric metric in track.computeMetrics()) {
-      final count = max(1, (metric.length / _bulbGap).round());
-      for (var i = 0; i < count; i++) {
-        final pos = metric.getTangentForOffset(metric.length * i / count)!.position;
-        canvas.drawCircle(pos, 5, glow);
-        canvas.drawCircle(pos, 3.2, bulb);
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(_MarqueePainter oldDelegate) => false;
 }
 
 /// Full-width rounded button: icon on the left, label centred, chevron right.

@@ -63,7 +63,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               padding: const EdgeInsets.fromLTRB(48, 0, 48, 40),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 360),
-                child: AnimatedBuilder(animation: _progress, builder: (_, _) => _LoadingBar(value: _progress.value)),
+                child: AnimatedBuilder(
+                  animation: _progress,
+                  builder: (_, _) => _LoadingBar(value: _progress.value),
+                ),
               ),
             ),
           ),

@@ -7,6 +7,7 @@ import 'sketch_painter.dart';
 
 /// The reference picture for a question.
 ///
+/// An `img` starting with assets/ is a picture bundled with the app.
 /// If the question has an internet image (`img`), it is downloaded once and
 /// kept on the phone, so it also shows offline afterwards. Otherwise the tiny
 /// vector sketch from the JSON is drawn. A question with both falls back to
@@ -23,6 +24,15 @@ class SketchPicture extends StatelessWidget {
       child: const SizedBox.expand(),
     );
     if (question.imageUrl.isEmpty) return vector;
+    if (question.hasBundledImage) {
+      return Image.asset(
+        question.imageUrl,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+        errorBuilder: (_, _, _) => vector,
+      );
+    }
     return CachedNetworkImage(
       imageUrl: question.imageUrl,
       cacheManager: QuizImageCache.instance,

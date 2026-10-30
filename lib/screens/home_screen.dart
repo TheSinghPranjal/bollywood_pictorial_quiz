@@ -7,6 +7,7 @@ import '../data/image_cache.dart';
 import '../data/question_repository.dart';
 import '../widgets/cinema.dart';
 import 'quiz_screen.dart';
+import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.repository});
@@ -21,7 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Question>? _questions;
   int _best = 0;
   int _roundSize = QuestionRepository.defaultRoundSize;
+  Set<Difficulty> _difficulties = {Difficulty.easy};
   String? _error;
+
+  /// Questions at the difficulty levels picked in Settings.
+  List<Question>? get _playable => _questions?.where((q) => _difficulties.contains(q.difficulty)).toList();
 
   @override
   void initState() {
@@ -34,11 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
       final questions = await widget.repository.loadLocal();
       final best = await widget.repository.bestScore();
       final roundSize = await widget.repository.roundSize();
+      final difficulties = await widget.repository.difficulties();
       if (!mounted) return;
       setState(() {
         _questions = questions;
         _best = best;
         _roundSize = roundSize;
+        _difficulties = difficulties;
       });
       // Pull extra questions and save their photos on the phone, without
       // blocking the game.
@@ -51,10 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _start([QuestionKind? kind]) async {
-    final all = _questions;
+    final all = _playable;
     if (all == null) return;
     final questions = kind == null ? all : all.where((q) => q.kind == kind).toList();
-    if (questions.isEmpty) return;
+    if (questions.isEmpty) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(const SnackBar(content: Text('No questions at this difficulty yet. Pick another in Settings.')));
+      return;
+    }
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(questions: questions, repository: widget.repository, roundSize: _roundSize),
@@ -65,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showCategories() {
-    final questions = _questions;
+    final questions = _playable;
     if (questions == null) return;
     showModalBottomSheet<void>(
       context: context,
@@ -109,43 +121,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showSettings() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (sheetContext) => SafeArea(
-        child: StatefulBuilder(
-          builder: (_, setSheetState) => Padding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Settings', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
-                const SizedBox(height: 16),
-                const Text('Questions per round', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: double.infinity,
-                  child: SegmentedButton<int>(
-                    segments: [
-                      for (final size in QuestionRepository.roundSizes)
-                        ButtonSegment(value: size, label: Text('$size')),
-                    ],
-                    selected: {_roundSize},
-                    onSelectionChanged: (selection) {
-                      final size = selection.single;
-                      setState(() => _roundSize = size);
-                      setSheetState(() {});
-                      widget.repository.saveRoundSize(size);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+  Future<void> _showSettings() async {
+    final saved = await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => SettingsScreen(repository: widget.repository, questions: _questions ?? const []),
       ),
     );
+    if (saved != true) return;
+    final roundSize = await widget.repository.roundSize();
+    final difficulties = await widget.repository.difficulties();
+    if (!mounted) return;
+    setState(() {
+      _roundSize = roundSize;
+      _difficulties = difficulties;
+    });
   }
 
   void _comingSoon(String feature) {

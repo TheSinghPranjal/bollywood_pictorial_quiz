@@ -17,6 +17,9 @@ class QuestionRepository {
   static const _downloadedKey = 'downloaded_questions_json';
   static const _bestScoreKey = 'best_score';
   static const _roundSizeKey = 'round_size';
+  static const _difficultiesKey = 'difficulties';
+  static const _soundEffectsKey = 'sound_effects';
+  static const _musicKey = 'background_music';
 
   /// Questions per round the player can pick in Settings.
   static const roundSizes = [10, 20, 30];
@@ -67,6 +70,24 @@ class QuestionRepository {
   }
 
   Future<void> saveRoundSize(int size) async => (await SharedPreferences.getInstance()).setInt(_roundSizeKey, size);
+
+  /// Difficulty levels to play; only easy until the player changes it.
+  Future<Set<Difficulty>> difficulties() async {
+    final saved = (await SharedPreferences.getInstance()).getStringList(_difficultiesKey) ?? const [];
+    final levels = Difficulty.values.where((d) => saved.contains(d.name)).toSet();
+    return levels.isEmpty ? {Difficulty.easy} : levels;
+  }
+
+  Future<void> saveDifficulties(Set<Difficulty> levels) async =>
+      (await SharedPreferences.getInstance()).setStringList(_difficultiesKey, [for (final d in levels) d.name]);
+
+  Future<bool> soundEffects() async => (await SharedPreferences.getInstance()).getBool(_soundEffectsKey) ?? true;
+
+  Future<void> saveSoundEffects(bool on) async => (await SharedPreferences.getInstance()).setBool(_soundEffectsKey, on);
+
+  Future<bool> backgroundMusic() async => (await SharedPreferences.getInstance()).getBool(_musicKey) ?? true;
+
+  Future<void> saveBackgroundMusic(bool on) async => (await SharedPreferences.getInstance()).setBool(_musicKey, on);
 
   Future<void> saveScore(int score) async {
     final prefs = await SharedPreferences.getInstance();

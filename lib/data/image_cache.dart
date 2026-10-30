@@ -16,7 +16,7 @@ class QuizImageCache {
   /// Downloads every question photo that isn't on the phone yet.
   static Future<void> downloadAll(List<Question> questions) async {
     for (final q in questions) {
-      if (q.imageUrl.isEmpty) continue;
+      if (q.imageUrl.isEmpty || q.hasBundledImage) continue;
       try {
         if (await instance.getFileFromCache(q.imageUrl) != null) continue;
         await instance.downloadFile(q.imageUrl, authHeaders: headers);

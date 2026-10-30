@@ -12,14 +12,28 @@ enum QuestionKind {
       QuestionKind.values.firstWhere((k) => k.name == value, orElse: () => QuestionKind.movie);
 }
 
+/// How hard a question is; players pick which levels to play in Settings.
+enum Difficulty {
+  easy('Easy'),
+  medium('Medium'),
+  hard('Hard');
+
+  const Difficulty(this.label);
+  final String label;
+
+  static Difficulty parse(String? value) =>
+      Difficulty.values.firstWhere((d) => d.name == value, orElse: () => Difficulty.easy);
+}
+
 /// One quiz question. JSON uses short keys to keep the stored data small:
-/// id, k (kind), q (question), o (4 options), a (answer index), f (fact),
+/// id, k (kind), d (difficulty, default easy), q (question), o (4 options), a (answer index), f (fact),
 /// img (optional internet image URL), cr (image credit, needed for
 /// Creative Commons photos), s (vector sketch elements).
 class Question {
   const Question({
     required this.id,
     required this.kind,
+    required this.difficulty,
     required this.text,
     required this.options,
     required this.answer,
@@ -31,6 +45,7 @@ class Question {
 
   final String id;
   final QuestionKind kind;
+  final Difficulty difficulty;
   final String text;
   final List<String> options;
   final int answer;
@@ -40,6 +55,9 @@ class Question {
   final List<Map<String, dynamic>> sketch;
 
   String get correctOption => options[answer];
+
+  /// `img` can also name a picture bundled with the app, e.g. assets/images/questions/dhol.jpg.
+  bool get hasBundledImage => imageUrl.startsWith('assets/');
 
   factory Question.fromJson(Map<String, dynamic> json) {
     final options = List<String>.from(json['o'] as List);
@@ -55,6 +73,7 @@ class Question {
     return Question(
       id: json['id'] as String,
       kind: QuestionKind.parse(json['k'] as String?),
+      difficulty: Difficulty.parse(json['d'] as String?),
       text: json['q'] as String,
       options: options,
       answer: answer,

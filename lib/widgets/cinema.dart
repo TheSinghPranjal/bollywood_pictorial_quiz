@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui' show PathMetric;
+
 import 'package:flutter/material.dart';
 
 /// Shared colours and widgets for the cinema-styled screens.
@@ -168,4 +171,99 @@ class GoldTitleText extends StatelessWidget {
       ],
     );
   }
+}
+
+/// A row of five gold stars, biggest in the middle, to crown a sign.
+class StarCrown extends StatelessWidget {
+  const StarCrown({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [_Star(size: 20), _Star(size: 40), _Star(size: 62), _Star(size: 40), _Star(size: 20)],
+    );
+  }
+}
+
+class _Star extends StatelessWidget {
+  const _Star({required this.size});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.star_rounded,
+      size: size,
+      color: kGold,
+      shadows: const [
+        Shadow(color: Color(0xFFB86E00), offset: Offset(0, 2)),
+        Shadow(color: Colors.black45, blurRadius: 8),
+      ],
+    );
+  }
+}
+
+/// Sign framed by a red border of glowing light bulbs, like a cinema marquee.
+class MarqueePainter extends CustomPainter {
+  const MarqueePainter({this.inner = const [Color(0xFFFFFAEE), Color(0xFFF7E3BC)], this.radius = 30, this.frame = 16});
+
+  /// Top and bottom colours of the sign inside the bulb frame.
+  final List<Color> inner;
+  final double radius;
+  final double frame;
+  static const _bulbGap = 22.0;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final outer = RRect.fromRectAndRadius(Offset.zero & size, Radius.circular(radius));
+    canvas.drawShadow(Path()..addRRect(outer), Colors.black, 10, false);
+    canvas.drawRRect(
+      outer,
+      Paint()
+        ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFFE5304A), Color(0xFF8E0C22)],
+        ).createShader(Offset.zero & size),
+    );
+    final sign = outer.deflate(frame);
+    canvas.drawRRect(
+      sign,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: inner,
+        ).createShader(sign.outerRect),
+    );
+    canvas.drawRRect(
+      sign,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = kGold,
+    );
+
+    // Bulbs evenly spaced around the middle of the red frame.
+    final track = Path()..addRRect(outer.deflate(frame / 2));
+    final glow = Paint()
+      ..color = const Color(0x99FFD54F)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
+    final bulb = Paint()..color = const Color(0xFFFFF3C4);
+    for (final PathMetric metric in track.computeMetrics()) {
+      final count = max(1, (metric.length / _bulbGap).round());
+      for (var i = 0; i < count; i++) {
+        final pos = metric.getTangentForOffset(metric.length * i / count)!.position;
+        canvas.drawCircle(pos, 5, glow);
+        canvas.drawCircle(pos, 3.2, bulb);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(MarqueePainter oldDelegate) =>
+      oldDelegate.inner != inner || oldDelegate.radius != radius || oldDelegate.frame != frame;
 }

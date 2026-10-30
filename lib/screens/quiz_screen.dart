@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../data/question.dart';
 import '../data/question_repository.dart';
@@ -45,6 +46,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int _index = 0;
   int _score = 0;
   String? _picked;
+  bool _soundEffects = false;
 
   Question get _current => _order[_index];
 
@@ -52,12 +54,15 @@ class _QuizScreenState extends State<QuizScreen> {
   void initState() {
     super.initState();
     _shuffleOptions();
+    widget.repository.soundEffects().then((on) => _soundEffects = on);
   }
 
   void _shuffleOptions() => _options = [..._current.options]..shuffle(_random);
 
   void _pick(String option) {
     if (_picked != null) return;
+    // The phone's built-in tap sound; no audio files needed.
+    if (_soundEffects) SystemSound.play(SystemSoundType.click);
     setState(() {
       _picked = option;
       if (option == _current.correctOption) _score++;
