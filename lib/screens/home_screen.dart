@@ -9,6 +9,7 @@ import '../widgets/cinema.dart';
 import 'quiz_screen.dart';
 import 'settings_screen.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.repository});
 
