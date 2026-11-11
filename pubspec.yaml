@@ -63,6 +63,7 @@ flutter:
 
   assets:
     - assets/data/questions.json
+    - assets/branding/lazy_bear_club.png
     - assets/images/home_bg.png
     - assets/images/splash_bg.png
     - assets/images/quiz_bg.png
